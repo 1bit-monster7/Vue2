@@ -1,6 +1,9 @@
 export default {
   route: {
     dashboard: '首页',
+    utilityComponent: '自定义组件',
+    Group: '关系图谱',
+    TableProgressBar: '进度条表格',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',
