@@ -1,13 +1,13 @@
 <template>
-  <div class="graph_container" style="position: relative">
+  <div id="graphContainer" class="graph_container" style="position: relative">
     <!--传入一个legend 不传则不显示-->
-    <div v-if="legends && legends.length>0" class="customize_legend">
-      <div v-for="(item,index) in legends" :key="index" class="legend_items">
-        <div class="legend_radio" :style="{background:item.color}" />
-        <div class="legend_label">{{ item.label }}</div>
+    <div class="customize_legend" v-if="legends && legends.length>0">
+      <div class="legend_items" v-for="(item,index) in legends" :key="index">
+        <div class="legend_radio" :style="{background:item.color}"></div>
+        <div class="legend_label">{{item.label}}</div>
       </div>
     </div>
-    <div id="container" style="height: 70vh; background: #fff" />
+    <div id="container" style="height: 70vh; background: #fff"></div>
   </div>
 </template>
 
@@ -16,6 +16,7 @@ import G6 from '@antv/g6'
 import { debounce } from '@/utils'
 
 export default {
+  name: 'erdas',
   props: {
     nodeColors: {
       type: Object,
@@ -38,12 +39,12 @@ export default {
   data() {
     return {
       globalStyle: {
-        normalLineWidth: 3, // 默认的时候lineWidth大小
-        hoverLineWidth: 6, // hover时的lineWidth大小
-        nodeSize: 120, // 初始节点大小
-        fontSize: 18, // 文字尺寸
-        fontMaxRows: 4, // 限制最多多少行
-        fontMaxWidth: 4 * 18 - 1 // 限制每行最大宽 一般根据中文计算 (4=每行字数 18=文字尺寸 -1 微调 )
+        normalLineWidth: 3, //默认的时候lineWidth大小
+        hoverLineWidth: 6,//hover时的lineWidth大小
+        nodeSize: 120,//初始节点大小
+        fontSize: 18, //文字尺寸
+        fontMaxRows: 4,//限制最多多少行
+        fontMaxWidth:4 * 18 - 1 //限制每行最大宽 一般根据中文计算 (4=每行字数 18=文字尺寸 -1 微调 )
       },
       graph: null,
       toolbar: null,
@@ -52,39 +53,39 @@ export default {
   },
   mounted() {
     this.init()
-    // 节流检测全屏状态更新画布位置和大小
+    //节流检测全屏状态更新画布位置和大小
     this.$_resizeCanvas = debounce(() => {
       this.resizeCanvas()
     }, 10, true)
     window.addEventListener('resize', this.$_resizeCanvas)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.$_resizeCanvas) // 移除事件
+    window.removeEventListener('resize', this.$_resizeCanvas) //移除事件
     this.$_resizeCanvas = null
   },
   Destroy() {
-    window.removeEventListener('resize', this.$_resizeCanvas) // 移除事件
+    window.removeEventListener('resize', this.$_resizeCanvas) //移除事件
     this.$_resizeCanvas = null
   },
   methods: {
-    // 页面视口大小更新后canvas画布进行更新
+    //页面视口大小更新后canvas画布进行更新
     resizeCanvas() {
-      const dom = document.getElementById('container')
-      const { width, height } = dom.getBoundingClientRect()
-      this.graph.changeSize(width, height) // 改变画布大小 设置为最大视口宽高
+      const dom = document.getElementById('graphContainer')
+      let { width, height } = dom.getBoundingClientRect()
+      this.graph.changeSize(width, height) //改变画布大小 设置为最大视口宽高
       this.toolbar.handleDefaultOperator('autoZoom')
     },
-    // 超出换行,溢出省略
+    //超出换行,溢出省略
     fittingString(str, maxWidth, fontSize, max_rows) {
-      let currentWidth = 0 // 计算宽度
-      let next_index = 0 // 下次截取坐标
-      const result = [] // 结果
-      let numberOfExecutions = 1 // 执行次数
-      str = str.replace(/\s?/g, '') // 所有空格去除
-      const array_str = str.split('')
-      const pattern = new RegExp('[\u4E00-\u9FA5]+') // 汉字字符
+      let currentWidth = 0 //计算宽度
+      let next_index = 0   //下次截取坐标
+      let result = []      //结果
+      let numberOfExecutions = 1 //执行次数
+      str = str.replace(/\s?/g,''); //所有空格去除
+      let array_str = str.split('')
+      const pattern = new RegExp('[\u4E00-\u9FA5]+') //汉字字符
       array_str.map((item, i) => {
-        // 中文或英文的宽度占用计算方式
+        //中文或英文的宽度占用计算方式
         if (pattern.test(item)) {
           currentWidth += fontSize
         } else {
@@ -92,15 +93,15 @@ export default {
         }
         if (max_rows >= numberOfExecutions) {
           if (currentWidth > maxWidth) {
-            // 第一次执行时从下标0开始
+            //第一次执行时从下标0开始
             currentWidth = 0
             result.push(str.slice(next_index, i))
             numberOfExecutions++
-            next_index = i // 记录本次截取的截止下标作为下一次的开始下标
+            next_index = i //记录本次截取的截止下标作为下一次的开始下标
           }
-          // 如果到最后一次执行  且执行次数大于1
+          //如果到最后一次执行  且执行次数大于1
           if (i === array_str.length - 1 && numberOfExecutions > 1) {
-            const last_str = str.slice(next_index, array_str.length)
+            let last_str = str.slice(next_index, array_str.length)
             result.push(last_str)
           }
         }
@@ -108,15 +109,15 @@ export default {
       if (result.length < 1) {
         return str
       } else {
-        // 用于判断字符是否和初始的字符一样长度 如果不一样说明 还有剩余字符未展示 则用省略号替代...
-        const str_array = result.join('')
+        //用于判断字符是否和初始的字符一样长度 如果不一样说明 还有剩余字符未展示 则用省略号替代...
+        let str_array = result.join('')
         if (str_array.length !== str.length) {
           result[max_rows - 1] = result[max_rows - 1] + '..'
         }
         return result.join('\n')
       }
     },
-    // 当前是否处于全屏状态
+    //当前是否处于全屏状态
     isFullScreen() {
       return !!(
         document.fullscreen ||
@@ -126,7 +127,7 @@ export default {
         document.msFullScreen
       )
     },
-    // 全屏的兼容写法
+    //全屏的兼容写法
     fullScreen(ele) {
       const func =
         ele.requestFullscreen ||
@@ -135,7 +136,7 @@ export default {
         ele.msRequestFullscreen
       func.call(ele)
     },
-    // 退出全屏兼容写法
+    //退出全屏兼容写法
     exitFullscreen() {
       const func =
         document.exitFullScreen ||
@@ -144,7 +145,7 @@ export default {
         document.msExitFullscreen
       func.call(document)
     },
-    // 清理节点状态
+    //清理节点状态
     clearAllStats(graph) {
       graph.setAutoPaint(false)
       graph.getNodes().forEach(function(node) {
@@ -156,69 +157,66 @@ export default {
       graph.paint()
       graph.setAutoPaint(true)
     },
-    // 初始化
     init() {
-      const g6_nodes = this.model.nodes.map((v, i) => {
-        const { id, name, color, type } = v
-        const processedString = this.fittingString(name, this.globalStyle.fontMaxWidth, this.globalStyle.fontSize, this.globalStyle.fontMaxRows)
+      let g6_nodes = this.model.nodes.map((v, i) => {
+        let { id, name, color, type } = v
+        let processedString = this.fittingString(name, this.globalStyle.fontMaxWidth, this.globalStyle.fontSize, this.globalStyle.fontMaxRows)
         return {
-          name, // 备份原始数据名
+          name, //备份原始数据名
           id,
-          label: processedString, // 处理后的字符串
-          class_type: type, // type与原始配置属性type冲突 所以起名为class_type
-          size: this.nodeSizes[type] || this.globalStyle.nodeSize, // 优先取数据自带size 没有则默认size
+          label: processedString,//处理后的字符串
+          class_type: type, //type与原始配置属性type冲突 所以起名为class_type
+          size: this.nodeSizes[type] || this.globalStyle.nodeSize, //优先取数据自带size 没有则默认size
           style: {
             fill: this.nodeColors[type]
           },
-          // 配置文本
+          //配置文本
           labelCfg: {
             style: {
               fontSize: this.globalStyle.fontSize,
-              fill: 'white', // 文字颜色
-              cursor: 'pointer' // 鼠标悬浮时的鼠标样式
+              fill: 'white', //文字颜色
+              cursor: 'pointer' //鼠标悬浮时的鼠标样式
             },
-            position: 'center' // label所在位置
+            position: 'center' //label所在位置
           }
         }
       })
-      const g6_edges = this.model.relations.map(v => {
-        const { name, source, target, type, lineWidth } = v
+      let g6_edges = this.model.relations.map(v => {
+        let { name, source, target, type, lineWidth } = v
         return {
-          name, // 备份原始数据名
+          name, //备份原始数据名
           label: name,
           source,
           target,
           class_type: type,
           style: {
-            lineWidth: this.globalStyle.normalLineWidth, // 边线宽度
-            stroke: this.relationColors[type], // 线条颜色
-            cursor: 'pointer', // 鼠标悬浮时的鼠标样式
-            lineDash: [3, 5],
-            startArrow: false
+            lineWidth: this.globalStyle.normalLineWidth, //边线宽度
+            stroke: this.relationColors[type], //线条颜色
+            cursor: 'pointer', //鼠标悬浮时的鼠标样式
+            lineDash: [3, 5]// 虚线  [0] 实线
           },
-          // 配置文本
+          //配置文本
           labelCfg: {
             style: {
               fontSize: this.globalStyle.fontSize,
-              fill: 'black' // 文字颜色
+              fill: 'black' //文字颜色
             }
           }
         }
       })
-
-      // render data
+      //render data
       const data = {
         nodes: g6_nodes,
         edges: g6_edges
       }
 
-      // 处理两个节点多条边 两条平行边的之间的距离改为50
-      G6.Util.processParallelEdges(data.edges, 50)
+      //处理两个节点多条边 两条平行边的之间的距离改为50
+      G6.Util.processParallelEdges(data.edges, 50);
 
-      // canvas size
+      //canvas size
       const width = document.getElementById('container').scrollWidth
       const height = document.getElementById('container').scrollHeight || 600
-      // Menu操作菜单
+      //Menu操作菜单
       const menu = new G6.Menu({
         offsetX: 6,
         offsetX: 10,
@@ -240,7 +238,7 @@ export default {
           console.log(item, 'item')
         }
       })
-      // 顶部操作栏
+      //顶部操作栏
       const toolbar = new G6.ToolBar({
         position: {
           x: 0,
@@ -248,8 +246,8 @@ export default {
         },
         handleClick: (code, graph) => {
           if (code === 'autoZoom') {
-            // 是否处于全屏效果
-            const canvas_box = document.getElementById('container')
+            //是否处于全屏效果
+            let canvas_box = document.getElementById('graphContainer')
             if (this.isFullScreen()) {
               this.exitFullscreen()
             } else {
@@ -261,7 +259,7 @@ export default {
         }
       })
       this.toolbar = toolbar
-      // tips
+      //tips
       const tooltip = new G6.Tooltip({
         offsetX: 10,
         offsetY: 10,
@@ -282,7 +280,7 @@ export default {
           return outDiv
         }
       })
-      // render
+      //render
       const graph = new G6.Graph({
         container: 'container',
         width,
@@ -296,7 +294,7 @@ export default {
         edgeStateStyles: {
           // 鼠标点击边，即 click 状态为 true 时的样式
           hover: {
-            lineWidth: this.globalStyle.hoverLineWidth, // 边线宽度
+            lineWidth: this.globalStyle.hoverLineWidth, //边线宽度
             lineDash: [0]// 虚线  [0] 实线
           }
         },
@@ -312,38 +310,37 @@ export default {
         },
         defaultEdge: {
           style: {
-            endArrow: true // 结束箭头
-
+            endArrow: true //结束箭头
           }
         },
         defaultNode: {
-          type: 'circle' // 节点形状 圆
+          type: 'circle' //节点形状 圆
         },
         layout: {
           type: 'radial',
           focusNode: 'li',
-          linkDistance: 150, // 每个线条长度
-          unitRadius: 300 // 每个节点距离
+          linkDistance: 150, //每个线条长度
+          unitRadius: 300 //每个节点距离
         }
       })
       this.graph = graph
-      // 渲染
+      //渲染
       graph.data(data)
       graph.render()
-      // events
+      //events
       graph.on('node:mouseenter', (evt) => {
         const { item } = evt
-        const edges = item._cfg.edges
-        // 所有元素状态清空及添加dark状态
+        let edges = item._cfg.edges
+        //所有元素状态清空及添加dark状态
         graph.getNodes().forEach(function(node) {
           graph.clearItemStates(node)
           graph.setItemState(node, 'dark', true)
         })
-        // 该节点关闭dark状态
+        //该节点关闭dark状态
         graph.setItemState(item, 'dark', false)
-        // 该节点添加高亮
+        //该节点添加高亮
         graph.setItemState(item, 'highlight', true)
-        // 关联节点添加高亮 文字改变为黑色
+        //关联节点添加高亮 文字改变为黑色
         graph.getEdges().forEach(function(edge) {
           if (edge.getSource() === item) {
             graph.setItemState(edge.getTarget(), 'dark', false)
@@ -370,18 +367,18 @@ export default {
               }
             })
           } else {
-            // 关联边上内容改为空
+            //关联边上内容改为空
             graph.updateItem(edge, {
               label: ''
             })
             graph.setItemState(edge, 'highlight', false)
           }
         })
-        // 线条hover状态激活
+        //线条hover状态激活
         edges.map(x => {
           graph.setItemState(x, 'hover', true)
         })
-        // 本节点颜色变为黑色
+        //本节点颜色变为黑色
         graph.updateItem(item, {
           labelCfg: {
             style: {
@@ -391,7 +388,7 @@ export default {
         })
       })
       graph.on('node:mouseleave', (evt) => {
-        // 关联节点添加高亮 文字改变为黑色
+        //关联节点添加高亮 文字改变为黑色
         graph.getNodes().map(node => {
           graph.updateItem(node, {
             labelCfg: {
@@ -402,7 +399,7 @@ export default {
           })
         })
         graph.getEdges().forEach(function(edge) {
-          // 关联边上内容改为空
+          //关联边上内容改为空
           graph.updateItem(edge, {
             label: edge._cfg.model.name
           })
@@ -420,41 +417,38 @@ export default {
 }
 </script>
 
+
 <style lang="scss" scoped>
-.graph_container {
+.graph_container{
   display: flex;
   flex-direction: column;
-
-  .customize_legend {
+  background: #fff;
+  .customize_legend{
     display: flex;
     width: 100%;
     padding-top: 10px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-
-    .legend_items {
+    .legend_items{
       flex-shrink: 0;
       margin: 5px 10px;
       display: flex;
       align-items: center;
       font-size: 18px;
-
-      .legend_radio {
+      .legend_radio{
         width: 18px;
-        height: 18px;
+        height:18px;
         border-radius: 50%;
-        background-color: rgb(234 124 204); //默认小圆球颜色
+        background-color:rgb(234 124 204); //默认小圆球颜色
         margin-right: 5px;
       }
-
-      .legend_label {
+      .legend_label{
 
       }
     }
   }
 }
-
 ::v-deep {
   .g6-component-toolbar {
     li:nth-child(1), li:nth-child(2) {

@@ -3,6 +3,7 @@
     ref="myTable"
     class="progressBar_table"
     :data="tableData"
+    :row-style="rowStyle"
     border
   >
     <el-table-column
@@ -23,7 +24,7 @@
       prop="progressValue"
       label="进度值">
       <template v-slot="{row,$index}">
-        <el-input-number @change="change(row,$index)" v-model="row.progressValue" :precision="1" :step="0.1" :min="0"
+        <el-input-number v-model="row.progressValue" :precision="1" :step="0.1" :min="0"
                          :max="1"></el-input-number>
       </template>
     </el-table-column>
@@ -34,9 +35,10 @@
 import ResizeObserver from 'resize-observer-polyfill';
 
 export default {
-  name:"TableProgressBar",
+  name: "TableProgressBar",
   data() {
     return {
+      observe: null,
       tableData: [
         {
           date: '2016-05-02',
@@ -66,48 +68,41 @@ export default {
     this.init();
   },
   methods: {
+    rowStyle({row}) {
+      //初始化进度条值
+      return {'--row-width': `${row.progressValue * 100}%`}
+    },
     init() {
+      //监听表格变化 改变row-height的margin-top
       const table = document.querySelector('.progressBar_table')
-      let trs = table.querySelectorAll('.el-table__row')
-      let trsArray = Array.from(trs);
-      trsArray.map((v, i) => v.style.setProperty('--row-width', (this.tableData[i].progressValue * 100) + '%'))
-      const ro = new ResizeObserver((entries, observer) => {
+      this.observe = new ResizeObserver((entries, observer) => {
+        console.log('出发出发')
         let table = entries[0].target;
         table.querySelectorAll('.el-table__row').forEach((row, index) => {
           row.style.setProperty('--row-height', `${row.offsetHeight - 2}px`)
         })
       });
-      ro.observe(table);
-    },
-    change(row, index) {
-      this.$nextTick(() => {
-        const table = document.querySelector('.progressBar_table')
-        let trs = table.querySelectorAll('.el-table__row')
-        trs[index].style.setProperty('--row-width', (row.progressValue * 100) + '%')
-      })
+      this.observe.observe(table);
     },
   },
+  beforeDestroy() {
+    //销毁前清空监听
+    this.observe = null;
+  }
 }
 </script>
 
 <style lang="scss">
-.progressBar_table {
-  position: relative;
-
-  .el-table__body {
-    tr {
-      &::after {
-        position: absolute;
-        left: 0;
-        margin-top: var(--row-height);
-        content: '';
-        width: var(--row-width);
-        height: 1px;
-        background: #409EFF;
-        transition: width .5s ease-in-out;
-      }
-    }
-
+.el-table {
+  tr::after {
+    content: '';
+    transition: width 0.3s ease;
+    background: #409EFF;
+    width: var(--row-width);
+    margin-top: var(--row-height);
+    height: 2px;
+    position: absolute;
+    left: 0;
   }
 }
 </style>
