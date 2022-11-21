@@ -1,0 +1,433 @@
+{
+  "nodes": [
+    {
+      "id": "5056833be57e45b7a8db0fc6b198ac7c",
+      "name": "湖泊生态环境治理工程项目aaa",
+      "type": "TINOGISS_ITEM",
+      "extra": null,
+      "color": "rgb(234 124 204)",
+      "data": {
+        "id": "5056833be57e45b7a8db0fc6b198ac7c",
+        "name": "湖泊生态环境治理工程项目",
+        "type": "TINOGISS_ITEM",
+        "extra": null,
+        "color": "rgb(234 124 204)"
+      },
+      "flated": true,
+      "text": "湖泊生态环境治理工程项目",
+      "size": 200
+    },
+    {
+      "id": "36212619731223061X",
+      "name": "古性宝",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "36212619731223061X",
+        "name": "古性宝",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "古性宝"
+    },
+    {
+      "id": "372522197105236152",
+      "name": "秦广全",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "372522197105236152",
+        "name": "秦广全",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "秦广全"
+    },
+    {
+      "id": "1",
+      "name": "M78星市土地收购储备中心",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null,
+      "color": "rgb(115 192 222)",
+      "data": {
+        "id": "1",
+        "name": "M78星市土地收购储备中心",
+        "type": "DWD_GOV_PUBLIC_UNIT",
+        "extra": null,
+        "color": "rgb(115 192 222)"
+      },
+      "flated": true,
+      "text": "M78星市土地收购储备中心"
+    },
+    {
+      "id": "91360725MA35J2G67Y",
+      "name": "崇义县连顺农业发展有限公司",
+      "type": "GZ_QYDJXX",
+      "extra": null,
+      "color": "rgb(145 204 117)",
+      "data": {
+        "id": "91360725MA35J2G67Y",
+        "name": "崇义县连顺农业发展有限公司",
+        "type": "GZ_QYDJXX",
+        "extra": null,
+        "color": "rgb(145 204 117)"
+      },
+      "flated": true,
+      "text": "崇义县连顺农业发展有限公司"
+    },
+    {
+      "id": "371521198710123153",
+      "name": "胡明良",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "color": "#f25a29",
+      "data": {
+        "id": "371521198710123153",
+        "name": "胡明良",
+        "type": "DWD_GOV_PUBLIC_PERSON",
+        "extra": null,
+        "color": "#f25a29"
+      },
+      "flated": true,
+      "text": "胡明良"
+    },
+    {
+      "id": "2",
+      "name": "外太空省M78星市自然资源局",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null,
+      "color": "rgb(115 192 222)",
+      "data": {
+        "id": "2",
+        "name": "外太空省M78星市自然资源局",
+        "type": "DWD_GOV_PUBLIC_UNIT",
+        "extra": null,
+        "color": "rgb(115 192 222)"
+      },
+      "flated": true,
+      "text": "外太空省M78星市自然资源局"
+    },
+    {
+      "id": "372522197302100019",
+      "name": "张杰",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "372522197302100019",
+        "name": "张杰",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "张杰"
+    },
+    {
+      "id": "372522198208204617",
+      "name": "李立军",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "372522198208204617",
+        "name": "李立军",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "李立军"
+    },
+    {
+      "id": "372522197703154237",
+      "name": "孙振国",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "color": "#f25a29",
+      "data": {
+        "id": "372522197703154237",
+        "name": "孙振国",
+        "type": "DWD_GOV_PUBLIC_PERSON",
+        "extra": null,
+        "color": "#f25a29"
+      },
+      "flated": true,
+      "text": "孙振国"
+    },
+    {
+      "id": "36212619680718063X",
+      "name": "王连生",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "36212619680718063X",
+        "name": "王连生",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "王连生"
+    },
+    {
+      "id": "372522196401240928",
+      "name": "汪凤华",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "color": "#0183fe",
+      "data": {
+        "id": "372522196401240928",
+        "name": "汪凤华",
+        "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+        "extra": null,
+        "color": "#0183fe"
+      },
+      "flated": true,
+      "text": "汪凤华"
+    }
+  ],
+  "rootId": "a619cd4e-9709-4e01-bf90-eecf460ef955",
+  "relations": [
+    {
+      "name": "子女1",
+      "source": "371521198710123153",
+      "target": "1",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "lineWidth": 1,
+      "text": "我测",
+      "color": "#f47349"
+    },
+    {
+      "name": "子女2",
+      "source": "371521198710123153",
+      "target": "1",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "lineWidth": 1,
+      "text": "我测2",
+      "color": "#f47349"
+    },
+    {
+      "name": "自己对自己",
+      "source": "371521198710123153",
+      "target": "371521198710123153",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "lineWidth": 1,
+      "text": "自己对自己",
+      "color": "red"
+    },
+    {
+      "name": "中标单位",
+      "source": "5056833be57e45b7a8db0fc6b198ac7c",
+      "target": "91360725MA35J2G67Y",
+      "type": "TINOGISS_ITEM-TINOGISS_ITEM_SUCCESSFUL_BIDDER",
+      "extra": null,
+      "from": "5056833be57e45b7a8db0fc6b198ac7c",
+      "to": "91360725MA35J2G67Y",
+      "lineWidth": 1,
+      "text": "中标单位"
+    },
+    {
+      "name": "项目联系人",
+      "source": "5056833be57e45b7a8db0fc6b198ac7c",
+      "target": "372522197302100019",
+      "type": "TINOGISS_ITEM-TINOGISS_ITEM_STAKEHOLDER",
+      "extra": null,
+      "from": "5056833be57e45b7a8db0fc6b198ac7c",
+      "to": "372522197302100019",
+      "lineWidth": 1,
+      "text": "项目联系人"
+    },
+    {
+      "name": "兄弟姐妹",
+      "source": "372522197703154237",
+      "target": "36212619731223061X",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "372522197703154237",
+      "to": "36212619731223061X",
+      "lineWidth": 1,
+      "text": "兄弟姐妹",
+      "color": "#f47349"
+    },
+    {
+      "name": "子女",
+      "source": "371521198710123153",
+      "target": "372522197302100019",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "371521198710123153",
+      "to": "372522197302100019",
+      "lineWidth": 1,
+      "text": "子女",
+      "color": "#f47349"
+    },
+    {
+      "name": "主任",
+      "source": "1",
+      "target": "371521198710123153",
+      "type": "DWD_GOV_PUBLIC_UNIT-DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "from": "1",
+      "to": "371521198710123153",
+      "lineWidth": 1,
+      "text": "主任",
+      "color": "#99cee0"
+    },
+    {
+      "name": "主任2",
+      "source": "1",
+      "target": "371521198710123153",
+      "type": "DWD_GOV_PUBLIC_UNIT-DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "lineWidth": 1,
+      "text": "主任2",
+      "color": "#99cee0"
+    },
+    {
+      "name": "主任3",
+      "source": "1",
+      "target": "371521198710123153",
+      "type": "DWD_GOV_PUBLIC_UNIT-DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "lineWidth": 1,
+      "text": "主任3",
+      "color": "#99cee0"
+    },
+    {
+      "name": "主任4",
+      "source": "1",
+      "target": "371521198710123153",
+      "type": "DWD_GOV_PUBLIC_UNIT-DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "lineWidth": 1,
+      "text": "主任4",
+      "color": "#99cee0"
+    },
+    {
+      "name": "配偶",
+      "source": "371521198710123153",
+      "target": "372522196401240928",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "371521198710123153",
+      "to": "372522196401240928",
+      "lineWidth": 1,
+      "text": "配偶",
+      "color": "#f47349"
+    },
+    {
+      "name": "股东",
+      "source": "91360725MA35J2G67Y",
+      "target": "36212619680718063X",
+      "type": "GZ_QYDJXX-GZ_QYDJXX_TZRJCZQK",
+      "extra": null,
+      "from": "91360725MA35J2G67Y",
+      "to": "36212619680718063X",
+      "lineWidth": 1,
+      "text": "股东",
+      "color": "#d0e3a0"
+    },
+    {
+      "name": "法人",
+      "source": "91360725MA35J2G67Y",
+      "target": "372522198208204617",
+      "type": "GZ_QYDJXX-GZ_QYDJXX_FDDBR",
+      "extra": null,
+      "from": "91360725MA35J2G67Y",
+      "to": "372522198208204617",
+      "lineWidth": 1,
+      "text": "法人",
+      "color": "#d0e3a0"
+    },
+    {
+      "name": "父母",
+      "source": "371521198710123153",
+      "target": "372522197105236152",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "371521198710123153",
+      "to": "372522197105236152",
+      "lineWidth": 1,
+      "text": "父母",
+      "color": "#f47349"
+    },
+    {
+      "name": "岳父母（公婆）",
+      "source": "371521198710123153",
+      "target": "372522198208204617",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "371521198710123153",
+      "to": "372522198208204617",
+      "lineWidth": 1,
+      "text": "岳父母（公婆）",
+      "color": "#f47349"
+    },
+    {
+      "name": "项目联系人",
+      "source": "5056833be57e45b7a8db0fc6b198ac7c",
+      "target": "372522197105236152",
+      "type": "TINOGISS_ITEM-TINOGISS_ITEM_STAKEHOLDER",
+      "extra": null,
+      "from": "5056833be57e45b7a8db0fc6b198ac7c",
+      "to": "372522197105236152",
+      "lineWidth": 1,
+      "text": "项目联系人"
+    },
+    {
+      "name": "其他",
+      "source": "372522197703154237",
+      "target": "36212619680718063X",
+      "type": "DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null,
+      "from": "372522197703154237",
+      "to": "36212619680718063X",
+      "lineWidth": 1,
+      "text": "其他",
+      "color": "#f47349"
+    },
+    {
+      "name": "股东",
+      "source": "91360725MA35J2G67Y",
+      "target": "36212619731223061X",
+      "type": "GZ_QYDJXX-GZ_QYDJXX_TZRJCZQK",
+      "extra": null,
+      "from": "91360725MA35J2G67Y",
+      "to": "36212619731223061X",
+      "lineWidth": 1,
+      "text": "股东",
+      "color": "#d0e3a0"
+    },
+    {
+      "name": "地理信息与测绘管理科科长",
+      "source": "2",
+      "target": "372522197703154237",
+      "type": "DWD_GOV_PUBLIC_UNIT-DWD_GOV_PUBLIC_PERSON",
+      "extra": null,
+      "from": "2",
+      "to": "372522197703154237",
+      "lineWidth": 1,
+      "text": "地理信息与测绘管理科科长",
+      "color": "#99cee0"
+    },
+    {
+      "name": "项目经理",
+      "source": "5056833be57e45b7a8db0fc6b198ac7c",
+      "target": "372522196401240928",
+      "type": "TINOGISS_ITEM-TINOGISS_ITEM_STAKEHOLDER",
+      "extra": null,
+      "from": "5056833be57e45b7a8db0fc6b198ac7c",
+      "to": "372522196401240928",
+      "lineWidth": 1,
+      "text": "项目经理"
+    }
+  ]
+}
