@@ -30,6 +30,7 @@ export default {
       type: Object,
       default: () => ({})
     },
+    focusNode: String,
     model: Object,
     legends: {
       type: Array,
@@ -44,7 +45,6 @@ export default {
         nodeSize: 120,//初始节点大小
         fontSize: 18, //文字尺寸
         fontMaxRows: 4,//限制最多多少行
-        fontMaxWidth:4 * 18 - 1 //限制每行最大宽 一般根据中文计算 (4=每行字数 18=文字尺寸 -1 微调 )
       },
       graph: null,
       toolbar: null,
@@ -76,12 +76,15 @@ export default {
       this.toolbar.handleDefaultOperator('autoZoom')
     },
     //超出换行,溢出省略
-    fittingString(str, maxWidth, fontSize, max_rows) {
+    fittingString(node, fontSize, max_rows) {
       let currentWidth = 0 //计算宽度
       let next_index = 0   //下次截取坐标
       let result = []      //结果
       let numberOfExecutions = 1 //执行次数
-      str = str.replace(/\s?/g,''); //所有空格去除
+      let str = node.label;
+      //根据节点size 减去 3个字符宽度 来确认最大宽
+      let maxWidth = Math.floor(node.size - (fontSize * 3));
+      str = str.replace(/\s?/g, ''); //所有空格去除
       let array_str = str.split('')
       const pattern = new RegExp('[\u4E00-\u9FA5]+') //汉字字符
       array_str.map((item, i) => {
@@ -159,12 +162,11 @@ export default {
     },
     init() {
       let g6_nodes = this.model.nodes.map((v, i) => {
-        let { id, name, color, type } = v
-        let processedString = this.fittingString(name, this.globalStyle.fontMaxWidth, this.globalStyle.fontSize, this.globalStyle.fontMaxRows)
-        return {
+        let {id, name, color, type} = v
+        let vNode = {
           name, //备份原始数据名
           id,
-          label: processedString,//处理后的字符串
+          label: name,//处理后的字符串
           class_type: type, //type与原始配置属性type冲突 所以起名为class_type
           size: this.nodeSizes[type] || this.globalStyle.nodeSize, //优先取数据自带size 没有则默认size
           style: {
@@ -180,9 +182,11 @@ export default {
             position: 'center' //label所在位置
           }
         }
+        vNode.label = this.fittingString(vNode, this.globalStyle.fontSize, this.globalStyle.fontMaxRows)
+        return vNode
       })
       let g6_edges = this.model.relations.map(v => {
-        let { name, source, target, type, lineWidth } = v
+        let {name, source, target, type, lineWidth} = v
         return {
           name, //备份原始数据名
           label: name,
@@ -219,7 +223,7 @@ export default {
       //Menu操作菜单
       const menu = new G6.Menu({
         offsetX: 6,
-        offsetX: 10,
+        offsetY: 10,
         itemTypes: ['node'],
         getContent(e) {
           const outDiv = document.createElement('div')
@@ -318,9 +322,13 @@ export default {
         },
         layout: {
           type: 'radial',
-          focusNode: 'li',
+          focusNode: this.focusNode,
           linkDistance: 150, //每个线条长度
-          unitRadius: 300 //每个节点距离
+          unitRadius: 300, //每个节点距离
+          preventOverlap: true,
+          strictRadial:true,
+          nodeSize: this.globalStyle,
+          workerEnabled: true,       // 可选，开启 web-worker
         }
       })
       this.graph = graph

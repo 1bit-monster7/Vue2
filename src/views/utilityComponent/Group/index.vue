@@ -1,6 +1,12 @@
 <template>
   <div class="dashboard-container">
-    <v-graph :legends="legends" :model="modelData" :node-colors="nodeColors" :relation-colors="relationColors" />
+    <v-graph
+      :model="modelData"
+      :legends="legends"
+      :node-colors="nodeColors"
+      :node-sizes="nodeSizes"
+      :relation-colors="relationColors"
+    />
   </div>
 </template>
 
@@ -17,48 +23,42 @@ export default {
     return {
       modelData,
       legends: [
-        { label: '父子1', value: '001', fill: 'red' },
-        { label: '父子2', value: '001', fill: 'yellow' },
-        { label: '父子3', value: '001', fill: 'blue' },
-        { label: '父子4', value: '001', fill: 'green' }
+        { label: "事项", color: "rgb(234 124 204)" },
+        { label: "企业", color: "rgb(145 204 117)" },
+        { label: "企业人员", color: "#0183fe" },
+        { label: "公职人员", color: "#f25a29" },
+        { label: "单位", color: "rgb(115 192 222)" },
       ],
       nodeColors: {
-        'SUBJECT': 'rgb(234 124 204)',
+        "TINOGISS_ITEM": "rgb(234 124 204)",
+        "TINOGISS_ITEM_ENTERPRISE": "rgb(145 204 117)",
+        'TINOGISS_ITEM_ENTERPRISE_PERSON': '#0183fe',
+        'TINOGISS_ITEM_PERSON': '#0183fe',
+        'GZ_QYDJXX': 'rgb(145 204 117)',
+        'GZ_QYDJXX_TZRJCZQK': '#0183fe',
+        'GZ_QYDJXX_ZYRYXX': '#0183fe',
         'DWD_GOV_PUBLIC_PERSON': '#f25a29',
         'DWD_GOV_PUBLIC_UNIT': 'rgb(115 192 222)',
         'DWD_GOV_PUBLIC_PERSON_FAMILY': '#0183fe',
-        'TINOGISS_ITEM': 'red',
-        'GZ_QYDJXX': 'green',
-        'SUBJECT1': 'rgb(234 124 204)',
-        'DWD_GOV_PUBLIC_PERSON1': '#f25a29',
-        'DWD_GOV_PUBLIC_UNIT1': 'rgb(115 192 222)',
-        'DWD_GOV_PUBLIC_PERSON_FAMILY1': '#0183fe',
-        'TINOGISS_ITEM1': 'red',
-        'GZ_QYDJXX1': 'green',
-        'SUBJECT2': 'rgb(234 124 204)',
-        'DWD_GOV_PUBLIC_PERSON2': '#f25a29',
-        'DWD_GOV_PUBLIC_UNIT2': 'rgb(115 192 222)',
-        'DWD_GOV_PUBLIC_PERSON_FAMILY2': '#0183fe',
-        'TINOGISS_ITEM2': 'red',
-        'GZ_QYDJXX2': 'green',
-        'SUBJECT3': 'rgb(234 124 204)',
-        'DWD_GOV_PUBLIC_PERSON3': '#f25a29',
-        'DWD_GOV_PUBLIC_UNIT3': 'rgb(115 192 222)',
-        'DWD_GOV_PUBLIC_PERSON_FAMILY3': '#0183fe',
-        'TINOGISS_ITEM3': 'red',
-        'GZ_QYDJXX3': 'green',
-        'SUBJECT4': 'rgb(234 124 204)',
-        'DWD_GOV_PUBLIC_PERSON4': '#f25a29',
-        'DWD_GOV_PUBLIC_UNIT4': 'rgb(115 192 222)',
-        'DWD_GOV_PUBLIC_PERSON_FAMILY4': '#0183fe',
-        'TINOGISS_ITEM4': 'red',
-        'GZ_QYDJXX4': 'green'
-
+      },
+      nodeSizes: {
+        "TINOGISS_ITEM": 120,
+        "TINOGISS_ITEM_ENTERPRISE": 100,
+        'TINOGISS_ITEM_ENTERPRISE_PERSON': 140,
+        'TINOGISS_ITEM_PERSON': 140,
+        'GZ_QYDJXX': 100,
+        'GZ_QYDJXX_TZRJCZQK': 140,
+        'GZ_QYDJXX_ZYRYXX': 140,
+        'DWD_GOV_PUBLIC_PERSON': 160,
+        'DWD_GOV_PUBLIC_UNIT': 120,
+        'DWD_GOV_PUBLIC_PERSON_FAMILY': 140,
       },
       relationColors: {
-        'DWD_GOV_PUBLIC_PERSON_FAMILY': '#f47349',
-        'DWD_GOV_PUBLIC_PERSON': '#99cee0',
-        'DWD_GOV_PUBLIC_PERSON-DWD_GOV_PUBLIC_PERSON_FAMILY': 'red'
+        "TINOGISS_ITEM_ENTERPRISE_PERSON": '#d0e3a0',
+        "GZ_QYDJXX_TZRJCZQK": '#d0e3a0',
+        "GZ_QYDJXX_ZYRYXX": '#d0e3a0',
+        "DWD_GOV_PUBLIC_PERSON_FAMILY": '#f47349',
+        "DWD_GOV_PUBLIC_PERSON": '#99cee0'
       }
     }
   }

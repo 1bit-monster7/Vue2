@@ -20,6 +20,12 @@ const utilityComponent = {
       name: 'TableProgressBar',
       component: () => import('@/views/utilityComponent/TableProgressBar/index'),
       meta: { title: 'TableProgressBar', icon: 'user', noCache: true }
+    },
+    {
+      path: 'TreeSelect',
+      name: 'TreeSelect',
+      component: () => import('@/views/utilityComponent/TreeSelect/index'),
+      meta: { title: 'TreeSelect', icon: 'user', noCache: true }
     }
   ]
 }
