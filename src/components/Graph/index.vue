@@ -160,6 +160,7 @@ export default {
       graph.paint()
       graph.setAutoPaint(true)
     },
+    //初始化
     init() {
       let g6_nodes = this.model.nodes.map((v, i) => {
         let {id, name, color, type} = v
@@ -414,7 +415,6 @@ export default {
         })
         this.clearAllStats(graph)
       })
-
       graph.on('canvas:click', (evt) => {
         graph.getNodes().forEach((node) => {
           graph.clearItemStates(node)

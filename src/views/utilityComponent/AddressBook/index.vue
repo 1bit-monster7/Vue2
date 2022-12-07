@@ -120,7 +120,7 @@ export default {
 
 .address_book_container {
   position: relative;
-  width: 100vw;
+  width: 400px;
   margin: 50px auto;
 
   ::-webkit-scrollbar {
