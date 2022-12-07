@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import {debounce} from 'lodash';
+
 export default {
   name: "addressBook",
   data() {
@@ -85,8 +87,8 @@ export default {
         return groups[group];
       });
     },
-    //滚动监听
-    scroll(e) {
+    //滚动监听 6ms防抖
+    scroll: debounce(function (e) {
       //如果是锚点定位则不处理
       const scrollTop = e.target.scrollTop;
       let items_Ref = document.querySelectorAll('.items_title')
@@ -99,9 +101,7 @@ export default {
           this.currentBar = node.innerText;
         }
       })
-
-
-    },
+    }, 6),
     //锚点定位
     scrollTo(item, index) {
       const container = document.querySelector('.scroll-content')
@@ -122,7 +122,6 @@ export default {
   position: relative;
   width: 460px;
   margin: 50px auto;
-  border: 1px solid #939394;
 
   ::-webkit-scrollbar {
     //web-kit
@@ -134,20 +133,25 @@ export default {
   .scroll-content {
     height: 500px;
     overflow-y: scroll;
+    background: #6E85B7;
+    border-radius: 10px;
 
     .outer-items {
       display: flex;
       flex-direction: column;
+      padding-top: 10px;
+      padding-left: 10px;
+      border-bottom: 1px solid #CFD2CF;
 
       .items_title {
-        color: #7d7d7f;
+        color: #B2C8DF;
         text-align: left;
-        padding: 0 10px;
         font-size: 25px;
       }
 
       .items_content {
-        color: black;
+        cursor: pointer;
+        color: #C4D7E0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -170,7 +174,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
     font-size: 16px;
-    color: #7d7d7f;
+    color: #B2C8DF;
 
     .items-bar {
       padding: 1px 3px;
@@ -179,7 +183,9 @@ export default {
     }
 
     .activeBar {
-      color: #4AB7BD;
+      color: #6E85B7;
+      background: #F8F9D7;
+      border-radius: 50%;
     }
   }
 }
