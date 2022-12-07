@@ -168,7 +168,7 @@ export default {
   .right-bar {
     //右侧锚点
     position: absolute;
-    right: 20px;
+    right: 3%;
     top: 25%;
     display: flex;
     flex-direction: column;
