@@ -26,7 +26,13 @@ const utilityComponent = {
       name: 'TreeSelect',
       component: () => import('@/views/utilityComponent/TreeSelect/index'),
       meta: { title: 'TreeSelect', icon: 'user', noCache: true }
-    }
+    },
+    {
+      path: 'AddressBook',
+      name: 'AddressBook',
+      component: () => import('@/views/utilityComponent/AddressBook/index'),
+      meta: { title: 'AddressBook', icon: 'user', noCache: true }
+    },
   ]
 }
 

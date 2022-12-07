@@ -5,6 +5,7 @@ export default {
     Group: '关系图谱',
     TableProgressBar: '进度条表格',
     TreeSelect:'树形选择器',
+    AddressBook:'通讯录',
     documentation: '文档',
     guide: '引导页',
     permission: '权限测试页',

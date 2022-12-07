@@ -18,9 +18,9 @@ import i18n from './lang' // internationalization
 import './icons' // icon
 import './permission' // permission control
 import './utils/error-log' // error log
+const pinyin = require('@/utils/chart-pinyin.js')
 
 import * as filters from './filters' // global filters
-
 
 
 /**
@@ -32,7 +32,7 @@ import * as filters from './filters' // global filters
  * please remove it before going online ! ! !
  */
 if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
+  const {mockXHR} = require('../mock')
   mockXHR()
 }
 
@@ -48,7 +48,7 @@ Object.keys(filters).forEach(key => {
 })
 
 Vue.config.productionTip = false
-
+Vue.prototype.$pinyin = pinyin?.ToPinyin
 new Vue({
   el: '#app',
   router,
