@@ -329,7 +329,6 @@ export default {
           preventOverlap: true,
           strictRadial:true,
           nodeSize: this.globalStyle,
-          workerEnabled: true,       // 可选，开启 web-worker
         }
       })
       this.graph = graph

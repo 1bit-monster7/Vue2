@@ -1,16 +1,22 @@
 <template>
   <div class="address_book_container">
-    <div class="scroll-content" @scroll="scroll">
-      <div class="outer-items" v-for="(item,i) of groupList" :key="item.key">
-        <div :class="{'active-title':i === current}" class="items_title">{{ item.key }}</div>
+    <div ref="scroll_container" class="scroll-content">
+      <div class="outer-items" @click.capture="_goTo(item.top)"
+           v-for="item of groupList"
+           :key="item.key">
+        <div :class="{'active-title':currentTop === item.top}" class="items_title">{{ item.key }}</div>
         <div class="items_content" v-for="(node,nodeIndex) in item.list" :key="nodeIndex">
           {{ node.name }}
         </div>
       </div>
     </div>
-    <div class="right-bar">
-      <div @click="scrollTo(item,index)" class="items-bar" v-for="(item,index) in groupList" :key="item.key"
-           :class="{ activeBar:  currentBar === item.key }">
+    <div class="right-bar" @mousemove="_mousemove">
+      <div
+        :data-top="item.top"
+        @click="_goTo(item.top)" class="items-bar"
+        v-for="item in groupList"
+        :key="item.key"
+        :class="{ activeBar:  currentTop === item.top }">
         {{ item.key }}
       </div>
     </div>
@@ -51,17 +57,43 @@ export default {
         {id: "aCQ10", name: "AKQ7", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
       ],
       groupList: [],
-      current: 0,
-      currentBar: null,
-      scrolling: false,
+      currentTop: 0,
     }
   },
-  created() {
+  mounted() {
     this.groupList = this._group(this._sort(this.list), (v) => {
       return v.group //根据group分组
     })
+    this._getScrollTops()  //给每个数据添加高度和scrollTop值
   },
   methods: {
+    _mousemove(e) {
+      console.log(e, 'e')
+    },
+    _getScrollTops() {
+      this.$nextTick(() => {
+        // 按字母排序分开的 dom 列表
+        let list = [].slice.call(this.$refs.scroll_container.children, 0);
+        // 对于每一个块计算距顶部的距离top 以及 通过getBoundingClientRect计算自身的高度
+        // 每个块距离顶部的距离算法 ： top = 上一块的高度 + 上一块的top值
+        list.forEach((node, index) => {
+          if (index !== -1) {
+            this.groupList[index].top = index > 0 ? (this.groupList[index - 1].top + this.groupList[index - 1].height) : 0;
+            this.groupList[index].height = node.getBoundingClientRect().height;
+          }
+        });
+        console.log(this.groupList, 'g')
+      });
+    },
+    _goTo(top) {
+      if (this.currentTop === top) return
+      console.log(top, 'top')
+      this.currentTop = top;
+      document.querySelector('.scroll-content').scrollTo({
+        top: top,
+        behavior: "smooth", // 滚动平滑
+      })
+    },
     //排序
     _sort(list) {
       return list.sort((a, b) => {
@@ -87,31 +119,6 @@ export default {
         return groups[group];
       });
     },
-    //滚动监听 6ms防抖
-    scroll: debounce(function (e) {
-      //如果是锚点定位则不处理
-      const scrollTop = e.target.scrollTop;
-      let items_Ref = document.querySelectorAll('.items_title')
-      items_Ref = Array.from(items_Ref);
-      items_Ref.forEach((node, i) => {
-        const offsetTop = node.offsetTop;
-        const scrollHeight = e.target.scrollHeight;
-        if (scrollTop >= offsetTop && scrollTop <= (offsetTop + scrollHeight)) {
-          this.current = i;
-          this.currentBar = node.innerText;
-        }
-      })
-    }, 0),
-    //锚点定位
-    scrollTo(item, index) {
-      const container = document.querySelector('.scroll-content')
-      let items_Ref = document.querySelectorAll('.items_title')
-      items_Ref = Array.from(items_Ref);
-      container.scrollTo({
-        top: items_Ref[index].offsetTop,
-        behavior: "smooth", // 滚动平滑
-      })
-    }
   }
 }
 </script>
@@ -121,7 +128,8 @@ export default {
 .address_book_container {
   position: relative;
   width: 400px;
-  margin: 50px auto;
+  height: 600px;
+  margin: auto;
 
   ::-webkit-scrollbar {
     //web-kit
@@ -131,6 +139,7 @@ export default {
   -ms-overflow-style: none; // ie
   scrollbar-width: none; // 火狐
   .scroll-content {
+    width: 400px;
     height: 600px;
     overflow-y: scroll;
     background: #6E85B7;
