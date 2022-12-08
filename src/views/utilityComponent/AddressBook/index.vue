@@ -101,7 +101,7 @@ export default {
           this.currentBar = node.innerText;
         }
       })
-    }, 6),
+    }, 0),
     //锚点定位
     scrollTo(item, index) {
       const container = document.querySelector('.scroll-content')
@@ -131,7 +131,7 @@ export default {
   -ms-overflow-style: none; // ie
   scrollbar-width: none; // 火狐
   .scroll-content {
-    height: 500px;
+    height: 600px;
     overflow-y: scroll;
     background: #6E85B7;
     border-radius: 10px;
@@ -180,6 +180,8 @@ export default {
       padding: 1px 3px;
       text-align: center;
       cursor: pointer;
+      margin: 4px 0;
+      font-size: 14px;
     }
 
     .activeBar {
