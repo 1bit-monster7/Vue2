@@ -1,7 +1,8 @@
 <template>
-  <div class="address_book_container">
+  <div @touchstart="_touchstart" @touchend="_touchend" class="address_book_container">
     <div ref="scroll_container" class="scroll-content">
-      <div class="outer-items" @click.capture="_goTo(item.top)"
+      <div class="outer-items"
+           @click.capture="_goTo(item.top)"
            v-for="item of groupList"
            :key="item.key">
         <div :class="{'active-title':currentTop === item.top}" class="items_title">{{ item.key }}</div>
@@ -10,10 +11,11 @@
         </div>
       </div>
     </div>
-    <div class="right-bar" @mousemove="_mousemove">
+    <div class="right-bar" @touchmove="_touchmove">
       <div
+        class="items-bar"
         :data-top="item.top"
-        @click="_goTo(item.top)" class="items-bar"
+        @click="_goTo(item.top)"
         v-for="item in groupList"
         :key="item.key"
         :class="{ activeBar:  currentTop === item.top }">
@@ -25,50 +27,55 @@
 
 <script>
 import {debounce} from 'lodash';
+import randomName from '@/utils/getRandomName'
 
 export default {
   name: "addressBook",
   data() {
     return {
-      list: [
-        {id: "Cv", name: "明翔808", ji0: "", ji1: "4天8时15分", ji2: "", ji3: ""},
-        {id: "4J", name: "金海788", ji0: "", ji1: "", ji2: "5天20时1分", ji3: ""},
-        {id: "Cvq", name: "aj", ji0: "", ji1: "4天8时15分", ji2: "", ji3: ""},
-        {id: "4R", name: "鲁荣远渔715", ji0: "", ji1: "6天8时4分", ji2: "", ji3: ""},
-        {id: "4T", name: "鲁荣远渔885", ji0: "", ji1: "6天7时39分", ji2: "", ji3: ""},
-        {id: "Hh", name: "丰汇9", ji0: "", ji1: "6天7时47分", ji2: "", ji3: ""},
-        {id: "4U", name: "鲁荣远渔887", ji0: "", ji1: "6天8时9分", ji2: "", ji3: ""},
-        {id: "4V", name: "鲁荣远渔277", ji0: "", ji1: "6天7时52分", ji2: "", ji3: ""},
-        {id: "nP", name: "鲁荣远渔709", ji0: "", ji1: "6天7时56分", ji2: "", ji3: ""},
-        {id: "il", name: "鲁荣远渔808", ji0: "", ji1: "6天7时36分", ji2: "", ji3: ""},
-        {id: "R6", name: "泓达1", ji0: "", ji1: "", ji2: "2天12时20分", ji3: ""},
-        {id: "J1", name: "润达605", ji0: "", ji1: "", ji2: "5天18时46分", ji3: ""},
-        {id: "IQ", name: "SPRING OASIS", ji0: "", ji1: "5天22时14分", ji2: "", ji3: ""},
-        {id: "ai", name: "鲁荣远渔708", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ1", name: "AK47", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ2", name: "AKQ8", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ3", name: "AKQ9", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ4", name: "AKQ1", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ5", name: "AKQ2", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ6", name: "AKQ3", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ7", name: "AKQ4", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ8", name: "AKQ5", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ9", name: "AKQ6", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-        {id: "aCQ10", name: "AKQ7", ji0: "", ji1: "6天7时43分", ji2: "", ji3: ""},
-      ],
+      list: [],
       groupList: [],
       currentTop: 0,
+      prevOffset: -999,
+      selectingLetter: false,
+      indexBarPosX: "",
+      isTrue: false,
     }
   },
   mounted() {
+    for (let i = 0; i < 100; i++) {
+      this.list.push(
+        {
+          id: i + 'id',
+          name: randomName.getName()
+        }
+      )
+    }
     this.groupList = this._group(this._sort(this.list), (v) => {
       return v.group //根据group分组
     })
     this._getScrollTops()  //给每个数据添加高度和scrollTop值
+    console.log(this.groupList, 'g')
   },
   methods: {
-    _mousemove(e) {
-      console.log(e, 'e')
+    _touchend() {
+      this.prevOffset = -9999;
+      this.selectingLetter = false;
+    },
+    _touchstart(e) {
+      if (!this.selectingLetter) {
+        this.indexBarPosX = e.touches[0].clientX;
+      }
+      this.selectingLetter = true;
+    },
+    _touchmove(e) {
+      const x = this.indexBarPosX;
+      const y = e.touches[0].clientY;
+      let target = document.elementFromPoint(x, y);
+      let offset = target && target.dataset && target.dataset.top;
+      if (offset && this.currentTop !== offset * 1) {
+        this._goTo(offset);
+      }
     },
     _getScrollTops() {
       this.$nextTick(() => {
@@ -78,17 +85,14 @@ export default {
         // 每个块距离顶部的距离算法 ： top = 上一块的高度 + 上一块的top值
         list.forEach((node, index) => {
           if (index !== -1) {
-            this.groupList[index].top = index > 0 ? (this.groupList[index - 1].top + this.groupList[index - 1].height) : 0;
-            this.groupList[index].height = node.getBoundingClientRect().height;
+            this.$set(this.groupList[index], 'top', index > 0 ? (this.groupList[index - 1].top + this.groupList[index - 1].height) : 0)
+            this.$set(this.groupList[index], 'height', node.getBoundingClientRect().height)
           }
         });
-        console.log(this.groupList, 'g')
-      });
+      })
     },
     _goTo(top) {
-      if (this.currentTop === top) return
-      console.log(top, 'top')
-      this.currentTop = top;
+      this.currentTop = top * 1;
       document.querySelector('.scroll-content').scrollTo({
         top: top,
         behavior: "smooth", // 滚动平滑
@@ -127,10 +131,10 @@ export default {
 
 .address_book_container {
   position: relative;
+  left: 50%;
+  margin-top: 50px;
+  transform: translateX(-50%);
   width: 400px;
-  height: 600px;
-  margin: auto;
-
   ::-webkit-scrollbar {
     //web-kit
     display: none;
@@ -139,8 +143,7 @@ export default {
   -ms-overflow-style: none; // ie
   scrollbar-width: none; // 火狐
   .scroll-content {
-    width: 400px;
-    height: 600px;
+    height: 80vh;
     overflow-y: scroll;
     background: #6E85B7;
     border-radius: 10px;
@@ -178,7 +181,8 @@ export default {
     //右侧锚点
     position: absolute;
     right: 3%;
-    top: 25%;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -187,9 +191,9 @@ export default {
 
     .items-bar {
       padding: 1px 3px;
+      margin: 5px 0;
       text-align: center;
       cursor: pointer;
-      margin: 4px 0;
       font-size: 14px;
     }
 
