@@ -154,7 +154,7 @@ export default {
       padding-top: 10px;
       padding-left: 10px;
       border-bottom: 1px solid #CFD2CF;
-
+      cursor: pointer;
       .items_title {
         color: #B2C8DF;
         text-align: left;
