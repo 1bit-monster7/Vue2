@@ -1,5 +1,5 @@
 <template>
-  <div @touchstart="_touchstart" @touchend="_touchend" class="address_book_container">
+  <div @touchstart="_touchstart" @mousemove="_mousemove" @touchend="_touchend" class="address_book_container">
     <div ref="scroll_container" @scroll="_scroll" class="scroll-content">
       <div class="outer-items"
            :data-leeter="item.top"
@@ -37,7 +37,6 @@ export default {
       list: [],
       groupList: [],
       currentTop: 0,
-      prevOffset: -999,
       selectingLetter: false,
       indexBarPosX: "",
     }
@@ -50,11 +49,13 @@ export default {
     this._getScrollTops()  //给每个数据添加高度和scrollTop值
   },
   methods: {
-    //增加100ms延迟因为滚动过渡动画需要时间
+    _mousemove(e) {
+      //兼容pc端滚动右侧字母激活
+      if (this.selectingLetter) this.selectingLetter = false;
+    },
     _scroll: debounce(function (s) {
       //在右侧字母未按住时进行滚动监听
       if (!this.selectingLetter) {
-        console.log('触发')
         let top = s.target.scrollTop;
         this.currentTop = this._takeTheDifference(top)
       }
@@ -80,7 +81,6 @@ export default {
       }
     },
     _touchend() {
-      this.currentTop = -9999;
       this.selectingLetter = false;
     },
     _touchstart(e) {
@@ -117,7 +117,7 @@ export default {
       let element = document.querySelector('.scroll-content');
       element.scrollTo({
         top: top,
-        behavior: "smooth", // 滚动平滑
+        // behavior: "smooth", // 滚动平滑
       })
       this.currentTop = top * 1;
     },
