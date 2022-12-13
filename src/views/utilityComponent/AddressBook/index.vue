@@ -40,7 +40,6 @@ export default {
       prevOffset: -999,
       selectingLetter: false,
       indexBarPosX: "",
-      isTrue: false,
     }
   },
   mounted() {
@@ -55,6 +54,7 @@ export default {
     _scroll: debounce(function (s) {
       //在右侧字母未按住时进行滚动监听
       if (!this.selectingLetter) {
+        console.log('触发')
         let top = s.target.scrollTop;
         this.currentTop = this._takeTheDifference(top)
       }
@@ -114,7 +114,8 @@ export default {
     },
     _goTo(top) {
       this.selectingLetter = true;
-      document.querySelector('.scroll-content').scrollTo({
+      let element = document.querySelector('.scroll-content');
+      element.scrollTo({
         top: top,
         behavior: "smooth", // 滚动平滑
       })
