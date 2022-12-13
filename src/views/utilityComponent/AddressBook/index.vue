@@ -1,7 +1,8 @@
 <template>
   <div @touchstart="_touchstart" @touchend="_touchend" class="address_book_container">
-    <div ref="scroll_container" class="scroll-content">
+    <div ref="scroll_container" @scroll="_scroll" class="scroll-content">
       <div class="outer-items"
+           :data-leeter="item.top"
            @click.capture="_goTo(item.top)"
            v-for="item of groupList"
            :key="item.key">
@@ -43,23 +44,43 @@ export default {
     }
   },
   mounted() {
-    for (let i = 0; i < 100; i++) {
-      this.list.push(
-        {
-          id: i + 'id',
-          name: randomName.getName()
-        }
-      )
-    }
+    this._getMock(); //获取假数据
     this.groupList = this._group(this._sort(this.list), (v) => {
       return v.group //根据group分组
     })
     this._getScrollTops()  //给每个数据添加高度和scrollTop值
-    console.log(this.groupList, 'g')
   },
   methods: {
+    //增加100ms延迟因为滚动过渡动画需要时间
+    _scroll: debounce(function (s) {
+      //在右侧字母未按住时进行滚动监听
+      if (!this.selectingLetter) {
+        let top = s.target.scrollTop;
+        this.currentTop = this._takeTheDifference(top)
+      }
+    }, 0),
+    //取距离当前滚动距离最近的值
+    _takeTheDifference(top) {
+      let list = [...this.groupList.map(v => v.top), top].sort((a, b) => a - b);
+      let findIndex = list.findIndex(v => v === top);
+      let prev = list[findIndex - 1] ?? 0;
+      let next = list[findIndex + 1] ?? 0;
+      let prevAbs = Math.abs(top - prev) //前一个值得绝对差值
+      let nextAbs = Math.abs(top - next) //前一个值得绝对差值
+      return prevAbs < nextAbs ? prev : next
+    },
+    _getMock() {
+      for (let i = 0; i < 100; i++) {
+        this.list.push(
+          {
+            id: i + 'id',
+            name: randomName.getName()
+          }
+        )
+      }
+    },
     _touchend() {
-      this.prevOffset = -9999;
+      this.currentTop = -9999;
       this.selectingLetter = false;
     },
     _touchstart(e) {
@@ -92,11 +113,12 @@ export default {
       })
     },
     _goTo(top) {
-      this.currentTop = top * 1;
+      this.selectingLetter = true;
       document.querySelector('.scroll-content').scrollTo({
         top: top,
         behavior: "smooth", // 滚动平滑
       })
+      this.currentTop = top * 1;
     },
     //排序
     _sort(list) {
@@ -135,6 +157,7 @@ export default {
   margin-top: 50px;
   transform: translateX(-50%);
   width: 400px;
+
   ::-webkit-scrollbar {
     //web-kit
     display: none;
@@ -155,6 +178,7 @@ export default {
       padding-left: 10px;
       border-bottom: 1px solid #CFD2CF;
       cursor: pointer;
+
       .items_title {
         color: #B2C8DF;
         text-align: left;
