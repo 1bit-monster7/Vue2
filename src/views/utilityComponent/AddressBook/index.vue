@@ -57,7 +57,10 @@ export default {
       //在右侧字母未按住时进行滚动监听
       if (!this.selectingLetter) {
         let top = s.target.scrollTop;
-        this.currentTop = this._takeTheDifference(top)
+        //有值才进行赋值
+        if(this._takeTheDifference(top) >=0){
+          this.currentTop =  this._takeTheDifference(top)
+        }
       }
     }, 0),
     //取距离当前滚动距离最近的值
@@ -68,7 +71,10 @@ export default {
       let next = list[findIndex + 1] ?? 0;
       let prevAbs = Math.abs(top - prev) //前一个值得绝对差值
       let nextAbs = Math.abs(top - next) //前一个值得绝对差值
-      return prevAbs < nextAbs ? prev : next
+      let result = prevAbs < nextAbs ? prev : next
+      let abs = Math.abs(top - result);
+      //切换下个值得阈值小于等于30 才进行赋值 避免切换太敏锐
+      if(abs <= 30) return result
     },
     _getMock() {
       for (let i = 0; i < 100; i++) {
