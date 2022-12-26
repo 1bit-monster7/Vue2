@@ -28,9 +28,12 @@
             :options="optionsForm"
             :show-count="true"
           >
-            <div slot="value-label" slot-scope="{ node }">
+            <template v-slot:option-label="{ node, shouldShowCount, count, labelClassName, countClassName }" :class="labelClassName">
+              {{ node.label }} <span v-if="shouldShowCount" :class="countClassName">({{ count }}) （插槽能力）</span>
+            </template>
+            <template v-slot:value-label="{ node }">
               {{ node.label }} （插槽能力）
-            </div>
+            </template>
           </v-tree-select>
         </el-form-item>
         <el-form-item label="选中数据">
@@ -60,7 +63,7 @@ export default {
       value2: null,
       form: {
         name: null,
-        value3: null
+        value3: ['001']
       },
       propsFormat(node) {
         return {
@@ -135,69 +138,69 @@ export default {
         }],
       optionsKFC: [
         {
-        id: 'm',
-        label: 'McDonalds',
-        children: [{
-          id: 'm-fries',
-          label: 'French Fries',
+          id: 'm',
+          label: 'McDonalds',
+          children: [{
+            id: 'm-fries',
+            label: 'French Fries',
+          }, {
+            id: 'm-cheeseburger',
+            label: 'Cheeseburger',
+          }, {
+            id: 'm-white-cheedar-burger',
+            label: 'White Cheddar Burger',
+          }, {
+            id: 'm-southwest-buttermilk-crispy-chicken-salad',
+            label: 'Southwest Buttermilk Crispy Chicken Salad',
+          }, {
+            id: 'm-cola',
+            label: 'Coca-Cola®',
+          }, {
+            id: 'm-chocolate-shake',
+            label: 'Chocolate Shake',
+          }],
         }, {
-          id: 'm-cheeseburger',
-          label: 'Cheeseburger',
+          id: 'kfc',
+          label: 'KFC',
+          children: [{
+            id: 'kfc-fries',
+            label: 'French Fries',
+          }, {
+            id: 'kfc-chicken-litties-sandwiches',
+            label: 'Chicken Litties Sandwiches',
+          }, {
+            id: 'kfc-grilled-chicken',
+            label: 'Grilled Chicken',
+          }, {
+            id: 'kfc-cola',
+            label: 'Pepsi® Cola',
+          }],
         }, {
-          id: 'm-white-cheedar-burger',
-          label: 'White Cheddar Burger',
-        }, {
-          id: 'm-southwest-buttermilk-crispy-chicken-salad',
-          label: 'Southwest Buttermilk Crispy Chicken Salad',
-        }, {
-          id: 'm-cola',
-          label: 'Coca-Cola®',
-        }, {
-          id: 'm-chocolate-shake',
-          label: 'Chocolate Shake',
+          id: 'bk',
+          label: 'Burger King',
+          children: [{
+            id: 'bk-chicken-fries',
+            label: 'Chicken Fries',
+          }, {
+            id: 'bk-chicken-nuggets',
+            label: 'Chicken Nuggets',
+          }, {
+            id: 'bk-garden-side-salad',
+            label: 'Garden Side Salad',
+          }, {
+            id: 'bk-cheeseburger',
+            label: 'Cheeseburger',
+          }, {
+            id: 'bk-bacon-king-jr-sandwich',
+            label: 'BACON KING™ Jr. Sandwich',
+          }, {
+            id: 'bk-cola',
+            label: 'Coca-Cola®',
+          }, {
+            id: 'bk-oreo-chocolate-shake',
+            label: 'OREO® Chocolate Shake',
+          }],
         }],
-      }, {
-        id: 'kfc',
-        label: 'KFC',
-        children: [{
-          id: 'kfc-fries',
-          label: 'French Fries',
-        }, {
-          id: 'kfc-chicken-litties-sandwiches',
-          label: 'Chicken Litties Sandwiches',
-        }, {
-          id: 'kfc-grilled-chicken',
-          label: 'Grilled Chicken',
-        }, {
-          id: 'kfc-cola',
-          label: 'Pepsi® Cola',
-        }],
-      }, {
-        id: 'bk',
-        label: 'Burger King',
-        children: [{
-          id: 'bk-chicken-fries',
-          label: 'Chicken Fries',
-        }, {
-          id: 'bk-chicken-nuggets',
-          label: 'Chicken Nuggets',
-        }, {
-          id: 'bk-garden-side-salad',
-          label: 'Garden Side Salad',
-        }, {
-          id: 'bk-cheeseburger',
-          label: 'Cheeseburger',
-        }, {
-          id: 'bk-bacon-king-jr-sandwich',
-          label: 'BACON KING™ Jr. Sandwich',
-        }, {
-          id: 'bk-cola',
-          label: 'Coca-Cola®',
-        }, {
-          id: 'bk-oreo-chocolate-shake',
-          label: 'OREO® Chocolate Shake',
-        }],
-      }],
     }
   },
   created() {
@@ -208,6 +211,7 @@ export default {
 <style scoped lang="scss">
 .tree-select-container {
   padding: 20px;
+
   .basic_use {
 
     display: flex;
