@@ -53,8 +53,6 @@ export default {
       if (!clipboardData) return;
       let text = window.getSelection().toString();
       if (text) {
-        // 如果文本存在，首先取消默认行为
-        e.preventDefault();
         this.pasteText = text; //保留当前剪切板的文字用于后续粘贴到光标处
       }
     },
@@ -95,6 +93,8 @@ export default {
     },
     copy(msg) {
       let value = this.aceEditor.getSelectedText();
+
+      console.log(value, 'value')
       //提示
       if (value) {
         // 创建输入框
