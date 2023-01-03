@@ -4,7 +4,7 @@
     <div class="customize_legend" v-if="legends && legends.length>0">
       <div class="legend_items" v-for="(item,index) in legends" :key="index">
         <div class="legend_radio" :style="{background:item.color}"></div>
-        <div class="legend_label">{{item.label}}</div>
+        <div class="legend_label">{{ item.label }}</div>
       </div>
     </div>
     <div id="container" style="height: 70vh; background: #fff"></div>
@@ -13,7 +13,7 @@
 
 <script>
 import G6 from '@antv/g6'
-import { debounce } from '@/utils'
+import {debounce} from '@/utils'
 
 export default {
   name: 'erdas',
@@ -71,7 +71,7 @@ export default {
     //页面视口大小更新后canvas画布进行更新
     resizeCanvas() {
       const dom = document.getElementById('graphContainer')
-      let { width, height } = dom.getBoundingClientRect()
+      let {width, height} = dom.getBoundingClientRect()
       this.graph.changeSize(width, height) //改变画布大小 设置为最大视口宽高
       this.toolbar.handleDefaultOperator('autoZoom')
     },
@@ -151,16 +151,15 @@ export default {
     //清理节点状态
     clearAllStats(graph) {
       graph.setAutoPaint(false)
-      graph.getNodes().forEach(function(node) {
+      graph.getNodes().forEach(function (node) {
         graph.clearItemStates(node)
       })
-      graph.getEdges().forEach(function(edge) {
+      graph.getEdges().forEach(function (edge) {
         graph.clearItemStates(edge)
       })
       graph.paint()
       graph.setAutoPaint(true)
     },
-    //初始化
     init() {
       let g6_nodes = this.model.nodes.map((v, i) => {
         let {id, name, color, type} = v
@@ -310,7 +309,7 @@ export default {
             lineWidth: 10
           },
           dark: {
-            opacity: 1
+            opacity: 1 //需要hover时隐藏其他非关系节点调整此值
           }
         },
         defaultEdge: {
@@ -327,8 +326,9 @@ export default {
           linkDistance: 150, //每个线条长度
           unitRadius: 300, //每个节点距离
           preventOverlap: true,
-          strictRadial:true,
+          strictRadial: true,
           nodeSize: this.globalStyle,
+          // workerEnabled: false,       // 不能开启否则线上环境会报错
         }
       })
       this.graph = graph
@@ -337,10 +337,10 @@ export default {
       graph.render()
       //events
       graph.on('node:mouseenter', (evt) => {
-        const { item } = evt
+        const {item} = evt
         let edges = item._cfg.edges
         //所有元素状态清空及添加dark状态
-        graph.getNodes().forEach(function(node) {
+        graph.getNodes().forEach(function (node) {
           graph.clearItemStates(node)
           graph.setItemState(node, 'dark', true)
         })
@@ -349,7 +349,7 @@ export default {
         //该节点添加高亮
         graph.setItemState(item, 'highlight', true)
         //关联节点添加高亮 文字改变为黑色
-        graph.getEdges().forEach(function(edge) {
+        graph.getEdges().forEach(function (edge) {
           if (edge.getSource() === item) {
             graph.setItemState(edge.getTarget(), 'dark', false)
             graph.setItemState(edge.getTarget(), 'highlight', true)
@@ -406,7 +406,7 @@ export default {
             }
           })
         })
-        graph.getEdges().forEach(function(edge) {
+        graph.getEdges().forEach(function (edge) {
           //关联边上内容改为空
           graph.updateItem(edge, {
             label: edge._cfg.model.name
@@ -414,6 +414,7 @@ export default {
         })
         this.clearAllStats(graph)
       })
+
       graph.on('canvas:click', (evt) => {
         graph.getNodes().forEach((node) => {
           graph.clearItemStates(node)
@@ -426,36 +427,41 @@ export default {
 
 
 <style lang="scss" scoped>
-.graph_container{
+.graph_container {
   display: flex;
   flex-direction: column;
   background: #fff;
-  .customize_legend{
+
+  .customize_legend {
     display: flex;
     width: 100%;
     padding-top: 10px;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    .legend_items{
+
+    .legend_items {
       flex-shrink: 0;
       margin: 5px 10px;
       display: flex;
       align-items: center;
       font-size: 18px;
-      .legend_radio{
+
+      .legend_radio {
         width: 18px;
-        height:18px;
+        height: 18px;
         border-radius: 50%;
-        background-color:rgb(234 124 204); //默认小圆球颜色
+        background-color: rgb(234 124 204); //默认小圆球颜色
         margin-right: 5px;
       }
-      .legend_label{
+
+      .legend_label {
 
       }
     }
   }
 }
+
 ::v-deep {
   .g6-component-toolbar {
     li:nth-child(1), li:nth-child(2) {
