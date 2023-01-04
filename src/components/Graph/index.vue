@@ -68,6 +68,9 @@ export default {
     this.$_resizeCanvas = null
   },
   methods: {
+    nodeSpacingComputed(d){
+      return d.size ||  this.globalStyle.nodeSize
+    },
     //页面视口大小更新后canvas画布进行更新
     resizeCanvas() {
       const dom = document.getElementById('graphContainer')
@@ -198,6 +201,7 @@ export default {
             stroke: this.relationColors[type], //线条颜色
             cursor: 'pointer', //鼠标悬浮时的鼠标样式
             lineDash: [3, 5]// 虚线  [0] 实线
+            // lineDash: [0]//[0] 实线
           },
           //配置文本
           labelCfg: {
@@ -323,12 +327,13 @@ export default {
         layout: {
           type: 'radial',
           focusNode: this.focusNode,
+          preventOverlap: true,     // 是否防止重叠，必须配合下面属性 nodeSize 或节点数据中的 size 属性，只有在数据中设置了 size 或在该布局中配置了与当前图节点大小相同的 nodeSize 值，才能够进行节点重叠的碰撞检测
+          strictRadial:true,
+          nodeSize: this.globalStyle.nodeSize,
           linkDistance: 150, //每个线条长度
-          unitRadius: 300, //每个节点距离
-          preventOverlap: true,
-          strictRadial: true,
-          nodeSize: this.globalStyle,
-          // workerEnabled: false,       // 不能开启否则线上环境会报错
+          nodeSpacing: this.nodeSpacingComputed, //防止重叠时节点边缘间距的最小值可计算
+          maxPreventOverlapIteration:7000, //防止重叠步骤的最大迭代次数
+          unitRadius: 300,//每一圈距离上一圈的距离。默认填充整个画布，即根据图的大小决定
         }
       })
       this.graph = graph

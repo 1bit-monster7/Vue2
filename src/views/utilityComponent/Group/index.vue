@@ -13,11 +13,13 @@
 <script>
 import Graph from '@/components/Graph'
 
-const modelData = require('@/views/utilityComponent/Group/mock/mock.json')
+const modelData = require('@/views/utilityComponent/Group/mock/mock2.json')
 export default {
   name: 'Graph',
   components: {
     'v-graph': Graph
+  },
+  created(){
   },
   data() {
     return {

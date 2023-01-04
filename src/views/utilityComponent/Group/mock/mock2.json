@@ -1,0 +1,361 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "name": "张志-主节点",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null
+    },
+    {
+      "id": "2",
+      "name": "易祥伦",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "3",
+      "name": "张锦源",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "4",
+      "name": "赖金莲",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "5",
+      "name": "中共信丰县委巡查工作领导小组第四巡查组",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "6",
+      "name": "信丰县自然资源局",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "7",
+      "name": "赣州银行股份有限公司",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "8",
+      "name": "易小颜",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "9",
+      "name": "张旭文",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null
+    },
+    {
+      "id": "10",
+      "name": "赣州市第四中学",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "11",
+      "name": "张志新11",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "12",
+      "name": "易祥伦12",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "13",
+      "name": "张锦源13",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "14",
+      "name": "赖金莲14",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "15",
+      "name": "中共信丰县委巡查工作领导小组第四巡查组15",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "16",
+      "name": "信丰县自然资源局16",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "17",
+      "name": "赣州银行股份有限公司17",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "18",
+      "name": "易小颜18",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "19",
+      "name": "张旭文19",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null
+    },
+    {
+      "id": "20",
+      "name": "赣州市第四中学20",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "21",
+      "name": "赣州市第四中学21",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "22",
+      "name": "张志新1122",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "23",
+      "name": "易祥伦1223",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "24",
+      "name": "张锦源1324",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "25",
+      "name": "赖金莲1425",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "26",
+      "name": "中共信丰县委巡查工作领导小组第四巡查组1526",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "27",
+      "name": "信丰县自然资源局1627",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "28",
+      "name": "赣州银行股份有限公司1728",
+      "type": "DWD_GOV_PUBLIC_UNIT",
+      "extra": null
+    },
+    {
+      "id": "29",
+      "name": "易小颜1829",
+      "type": "DWD_GOV_PUBLIC_PERSON_FAMILY",
+      "extra": null
+    },
+    {
+      "id": "30",
+      "name": "张旭文1930",
+      "type": "DWD_GOV_PUBLIC_PERSON",
+      "extra": null
+    }
+  ],
+  "rootId": "1",
+  "relations": [
+    {
+      "extra": null,
+      "name": "兄弟姐妹",
+      "source": "2",
+      "target": "1"
+    },
+    {
+      "extra": null,
+      "name": "父母",
+      "source": "3",
+      "target": "1"
+    },
+    {
+      "extra": null,
+      "name": "配偶",
+      "source": "4",
+      "target": "1"
+    },
+    {
+      "extra": null,
+      "name": "同学",
+      "source": "5",
+      "target": "1"
+    },
+    {
+      "extra": null,
+      "name": "兄弟姐妹1",
+      "source": "6",
+      "target": "2"
+    },
+    {
+      "extra": null,
+      "name": "父母1",
+      "source": "7",
+      "target": "2"
+    },
+    {
+      "extra": null,
+      "name": "配偶1",
+      "source": "8",
+      "target": "2"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "9",
+      "target": "2"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "10",
+      "target": "2"
+    },
+    {
+      "extra": null,
+      "name": "兄弟姐妹1",
+      "source": "11",
+      "target": "3"
+    },
+    {
+      "extra": null,
+      "name": "父母1",
+      "source": "12",
+      "target": "3"
+    },
+    {
+      "extra": null,
+      "name": "配偶1",
+      "source": "13",
+      "target": "3"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "14",
+      "target": "3"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "15",
+      "target": "3"
+    },
+    {
+      "extra": null,
+      "name": "兄弟姐妹1",
+      "source": "16",
+      "target": "10"
+    },
+    {
+      "extra": null,
+      "name": "父母1",
+      "source": "17",
+      "target": "10"
+    },
+    {
+      "extra": null,
+      "name": "配偶1",
+      "source": "18",
+      "target": "10"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "19",
+      "target": "10"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "20",
+      "target": "10"
+    },
+    {
+      "extra": null,
+      "name": "兄弟姐妹1",
+      "source": "21",
+      "target": "11"
+    },
+    {
+      "extra": null,
+      "name": "父母1",
+      "source": "22",
+      "target": "11"
+    },
+    {
+      "extra": null,
+      "name": "配偶1",
+      "source": "23",
+      "target": "11"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "24",
+      "target": "11"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "25",
+      "target": "11"
+    },
+    {
+      "extra": null,
+      "name": "兄弟姐妹1",
+      "source": "26",
+      "target": "16"
+    },
+    {
+      "extra": null,
+      "name": "父母1",
+      "source": "27",
+      "target": "16"
+    },
+    {
+      "extra": null,
+      "name": "配偶1",
+      "source": "28",
+      "target": "16"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "29",
+      "target": "16"
+    },
+    {
+      "extra": null,
+      "name": "同学1",
+      "source": "30",
+      "target": "16"
+    }
+  ]
+}
