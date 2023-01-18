@@ -3,7 +3,7 @@
     <div class="basic_use">
       <div class="item">
         <h2>基础单选</h2>
-        <v-tree-select v-model="value1" :multiple="false" :options="options"/>
+        <v-tree-select  :searchable="true" :searchNested="true" v-model="value1" :multiple="false" :options="options"/>
       </div>
       <div class="item">
         <h2>基础多选</h2>
@@ -28,7 +28,8 @@
             :options="optionsForm"
             :show-count="true"
           >
-            <template v-slot:option-label="{ node, shouldShowCount, count, labelClassName, countClassName }" :class="labelClassName">
+            <template v-slot:option-label="{ node, shouldShowCount, count, labelClassName, countClassName }"
+                      :class="labelClassName">
               {{ node.label }} <span v-if="shouldShowCount" :class="countClassName">({{ count }}) （插槽能力）</span>
             </template>
             <template v-slot:value-label="{ node }">
@@ -50,6 +51,9 @@ import Big from 'big.js'; //解决精度丢失
 import Treeselect from '@riophae/vue-treeselect'
 // import the styles
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import {TreeCreateFast} from '@/utils/mockTree.js'
+import genTestData from '@/utils/genTestData.js'
+import {arrayToTree} from "@/utils";
 
 export default {
   name: "TreeSelect",
@@ -118,24 +122,7 @@ export default {
           ]
         }
       ],
-      options: [
-        {
-          id: 'a',
-          label: 'a',
-          children: [{
-            id: 'aa',
-            label: 'aa',
-          }, {
-            id: 'ab',
-            label: 'ab',
-          }],
-        }, {
-          id: 'b',
-          label: 'b',
-        }, {
-          id: 'c',
-          label: 'c',
-        }],
+      options: [],
       optionsKFC: [
         {
           id: 'm',
@@ -204,6 +191,28 @@ export default {
     }
   },
   created() {
+    let treeConfig = {
+      fId: 'pid',
+      id: 'id',
+      label: 'label',
+      rootId: '0',
+      topFloor: {start: 500, end: 600},
+      innerLayer: {start: 10000, end: 20000}
+    }
+    // 测试数据
+    const oriData = genTestData(treeConfig)
+    console.log(`树节点数量 ${oriData.length}`)
+    // 树 数组形式
+    let demoTree = new TreeCreateFast(function (item) {
+      for (let key of Object.keys(item)) {
+        this[key] = item[key]
+      }
+    }, treeConfig)
+    console.time('生成树时间')
+    demoTree.create(oriData, true)
+    console.timeEnd('生成树时间')
+    console.log(demoTree.treeData,'emoTree.treeData')
+    this.options = demoTree.treeData
   }
 }
 </script>

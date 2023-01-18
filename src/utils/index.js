@@ -355,3 +355,15 @@ export function debounce(func, wait, immediate) {
     return result
   }
 }
+
+
+// 数组转tree 对象映射
+export function arrayToTree(arr, keyPath = 'id', pid='pid', r = [], map = {}){
+  arr.map(item => {
+    item.children = [];
+    map[item[keyPath]] = item
+  })
+  arr.map(x => map[x[pid]] ? map[x[pid]].children.push(x) : r.push(x))
+  return r
+}
+
