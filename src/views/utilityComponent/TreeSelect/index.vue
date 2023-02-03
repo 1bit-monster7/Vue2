@@ -3,7 +3,11 @@
     <div class="basic_use">
       <div class="item">
         <h2>基础单选</h2>
-        <v-tree-select  :searchable="true" :searchNested="true" v-model="value1" :multiple="false" :options="options"/>
+        <v-tree-select :searchable="true" :searchNested="true" v-model="value1" :multiple="false" :options="options">
+          <template v-slot:value-label="{node}">
+            {{ fullyExpanded(node) }}
+          </template>
+        </v-tree-select>
       </div>
       <div class="item">
         <h2>基础多选</h2>
@@ -192,13 +196,14 @@ export default {
   },
   created() {
     let treeConfig = {
-      fId: 'pid',
+      parentId: 'pid',
       id: 'id',
       label: 'label',
       rootId: '0',
       topFloor: {start: 500, end: 600},
       innerLayer: {start: 10000, end: 20000}
     }
+
     // 测试数据
     const oriData = genTestData(treeConfig)
     console.log(`树节点数量 ${oriData.length}`)
@@ -211,8 +216,13 @@ export default {
     console.time('生成树时间')
     demoTree.create(oriData, true)
     console.timeEnd('生成树时间')
-    console.log(demoTree.treeData,'emoTree.treeData')
+    console.log(demoTree.treeData, 'emoTree.treeData')
     this.options = demoTree.treeData
+  },
+  methods: {
+    fullyExpanded(node) {
+      return node.nestedSearchLabel.split(' ').join(' / ')
+    },
   }
 }
 </script>
@@ -231,5 +241,14 @@ export default {
       margin: 0 20px;
     }
   }
+
+  ::v-deep {
+    .vue-treeselect__single-value {
+      color: #606266;
+      font-size: 14px;
+    }
+  }
+
+
 }
 </style>

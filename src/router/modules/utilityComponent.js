@@ -39,6 +39,12 @@ const utilityComponent = {
       component: () => import('@/views/utilityComponent/TextEditor/index'),
       meta: { title: 'TextEditor', icon: 'user', noCache: true }
     },
+    {
+      path: 'AnalogData',
+      name: 'AnalogData',
+      component: () => import('@/views/utilityComponent/AnalogData/index'),
+      meta: { title: 'AnalogData', icon: 'user', noCache: true }
+    },
   ]
 }
 

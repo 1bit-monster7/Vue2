@@ -18,12 +18,12 @@ export default function (treeConfig) {
   let data = []
   // 随机生成 x - x 个顶级节点
   for (let i = 0, l = getRandomByRange(treeConfig.topFloor.start, treeConfig.topFloor.end); i < l; i++) {
-    data.push({[treeConfig.fId]: '0', [treeConfig.id]: getRandomCode(), [treeConfig.label]: randomName.getName()})
+    data.push({[treeConfig.parentId]: '0', [treeConfig.id]: getRandomCode(), [treeConfig.label]: randomName.getName()})
   }
   // 随机生成 x-x 个随机关联节点
   for (let i = 0, l = getRandomByRange(treeConfig.innerLayer.start, treeConfig.innerLayer.end); i < l; i++) {
     data.push({
-      [treeConfig.fId]: getRandomCodeByData(data,treeConfig.id),
+      [treeConfig.parentId]: getRandomCodeByData(data,treeConfig.id),
       [treeConfig.id]: getRandomCode(),
       [treeConfig.label]: randomName.getName()
     })
