@@ -1,0 +1,1 @@
+.el-table tr:after{content:"";-webkit-transition:width .3s ease;transition:width .3s ease;background:#409eff;width:var(--row-width);margin-top:var(--row-height);height:2px;position:absolute;left:0}
