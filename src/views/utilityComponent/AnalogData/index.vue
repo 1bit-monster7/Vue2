@@ -47,6 +47,45 @@
           </el-form-item>
         </el-col>
       </el-row>
+
+      <el-row>
+        <el-col :span="8">
+          <el-form-item prop="value" label="第1个表单">
+            <el-select ref="ref1" @change="nextFocus('ref2')" v-model="form.value" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item prop="value2" label="第2个表单">
+            <el-select ref="ref2" @change="nextFocus('ref3')" v-model="form.value2" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item prop="value3" label="第3个表单">
+            <el-select ref="ref3" v-model="form.value3" placeholder="请选择">
+              <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
     </el-form>
     <div class="dataResults">
       <el-link :underline="false" href="https://element.eleme.io" target="_blank">生成耗时：{{
@@ -58,10 +97,6 @@
     <div class="operation">
       <el-button v-if="!readonly" type="primary" @click="submitForm">确 定</el-button>
     </div>
-
-    <div class="gradient">
-
-    </div>
   </div>
 </template>
 
@@ -72,7 +107,26 @@ import {TreeCreateFast} from "@/utils/mockTree";
 export default {
   data() {
     return {
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
       form: {
+        value: null,
+        value1: null,
+        value2: null,
         parentId: 'pid',
         id: 'id',
         label: 'label',
@@ -89,6 +143,12 @@ export default {
     }
   },
   methods: {
+    nextFocus(ref) {
+      this.$nextTick(() => {
+        // this.$refs[ref].toggleMenu()
+        this.$refs[ref].$el.click()
+      })
+    },
     submitForm() {
       // 测试数据
       this.oriData = genTestData(this.form)
